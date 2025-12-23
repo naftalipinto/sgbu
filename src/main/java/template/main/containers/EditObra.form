@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.ButtonGroup" name="buttonGroup1">
+    </Component>
+  </NonVisualComponents>
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,0,-1,0,0,2,81"/>
+    <SyntheticProperty name="formSizePolicy" type="int" value="0"/>
+    <SyntheticProperty name="generateSize" type="boolean" value="true"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace pref="352" max="32767" attributes="0"/>
+              <Component id="lb_id" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
+              <Component id="jButton1" min="-2" pref="94" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
+              <Component id="cb_idioma" min="-2" pref="205" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
+          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" alignment="0" groupAlignment="0" attributes="0">
+                          <Component id="jLabel1" alignment="0" min="-2" pref="48" max="-2" attributes="0"/>
+                          <Component id="jLabel9" alignment="1" min="-2" pref="48" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="lb_" alignment="1" min="-2" pref="48" max="-2" attributes="0"/>
+                      <Component id="jLabel10" alignment="1" min="-2" pref="48" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="tf_edicao" alignment="0" pref="203" max="32767" attributes="0"/>
+                      <Component id="tf_titulo" alignment="0" max="32767" attributes="0"/>
+                      <Component id="cb_editora" alignment="1" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="jLabel11" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="213" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                          <Component id="tf_sinopse" alignment="1" min="-2" pref="205" max="-2" attributes="0"/>
+                          <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel7" min="-2" pref="61" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="tf_isbn" min="-2" pref="205" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel8" min="-2" pref="61" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="tf_ano" min="-2" pref="205" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" attributes="0">
+              <EmptySpace pref="127" max="32767" attributes="0"/>
+              <Component id="cb_idioma" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lb_id" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+          </Group>
+          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="tf_titulo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="tf_isbn" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="tf_edicao" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lb_" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="tf_ano" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="tf_sinopse" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="cb_editora" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="24" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JButton" name="jButton1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Salvar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="tf_ano">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tf_anoActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Titulo"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel7">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Isbn"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lb_">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Edi&#xe7;&#xe3;o"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="tf_isbn">
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel8">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ano"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="tf_edicao">
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel9">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Editora"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel10">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Idioma"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="tf_sinopse">
+    </Component>
+    <Component class="javax.swing.JComboBox" name="cb_editora">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="0"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JTextField" name="tf_titulo">
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel11">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Sinopse"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lb_id">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jLabel2"/>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="cb_idioma">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="50">
+            <StringItem index="0" value="Ingl&#xea;s"/>
+            <StringItem index="1" value="Portugu&#xea;s"/>
+            <StringItem index="2" value="Espanhol"/>
+            <StringItem index="3" value="Franc&#xea;s"/>
+            <StringItem index="4" value="Alem&#xe3;o"/>
+            <StringItem index="5" value="Italiano"/>
+            <StringItem index="6" value="Holand&#xea;s"/>
+            <StringItem index="7" value="Sueco"/>
+            <StringItem index="8" value="Noruegu&#xea;s"/>
+            <StringItem index="9" value="Dinamarqu&#xea;s"/>
+            <StringItem index="10" value="Finland&#xea;s"/>
+            <StringItem index="11" value="Russo"/>
+            <StringItem index="12" value="Ucraniano"/>
+            <StringItem index="13" value="Polaco"/>
+            <StringItem index="14" value="Checo"/>
+            <StringItem index="15" value="Eslovaco"/>
+            <StringItem index="16" value="H&#xfa;ngaro"/>
+            <StringItem index="17" value="Romeno"/>
+            <StringItem index="18" value="B&#xfa;lgaro"/>
+            <StringItem index="19" value="S&#xe9;rvio"/>
+            <StringItem index="20" value="Croata"/>
+            <StringItem index="21" value="B&#xf3;snio"/>
+            <StringItem index="22" value="Maced&#xf3;nio"/>
+            <StringItem index="23" value="Alban&#xea;s"/>
+            <StringItem index="24" value="Grego"/>
+            <StringItem index="25" value="Turco"/>
+            <StringItem index="26" value="&#xc1;rabe"/>
+            <StringItem index="27" value="Hebraico"/>
+            <StringItem index="28" value="Persa (Farsi)"/>
+            <StringItem index="29" value="Urdu"/>
+            <StringItem index="30" value="Hindi"/>
+            <StringItem index="31" value="Bengali"/>
+            <StringItem index="32" value="Punjabi"/>
+            <StringItem index="33" value="Nepal&#xea;s"/>
+            <StringItem index="34" value="Tibetano"/>
+            <StringItem index="35" value="Chin&#xea;s Mandarim"/>
+            <StringItem index="36" value="Canton&#xea;s"/>
+            <StringItem index="37" value="Japon&#xea;s"/>
+            <StringItem index="38" value="Coreano"/>
+            <StringItem index="39" value="Vietnamita"/>
+            <StringItem index="40" value="Tailand&#xea;s"/>
+            <StringItem index="41" value="Indon&#xe9;sio"/>
+            <StringItem index="42" value="Malaio"/>
+            <StringItem index="43" value="Filipino (Tagalog)"/>
+            <StringItem index="44" value="Sua&#xed;li"/>
+            <StringItem index="45" value="Zulu"/>
+            <StringItem index="46" value="Am&#xe1;rico"/>
+            <StringItem index="47" value="Yoruba"/>
+            <StringItem index="48" value="Lingala"/>
+            <StringItem index="49" value="Kimbundo"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+  </SubComponents>
+</Form>
