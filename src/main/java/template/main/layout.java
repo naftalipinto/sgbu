@@ -25,6 +25,7 @@ public class layout extends javax.swing.JFrame {
     GobraPanel obra = new GobraPanel();
     GcirculacaoPanel circulacao = new GcirculacaoPanel();
     GexemplarPanel exemplar = new GexemplarPanel();
+    GcatalogoPanel catalogo = new GcatalogoPanel();
     Utilizador usuario;
     public static Long idUser;
 
@@ -34,6 +35,13 @@ public class layout extends javax.swing.JFrame {
         container.setLayout(null);
         this.usuario = u;
         idUser = u.getId();
+        dashboard d = new dashboard();
+        container.removeAll();
+        container.setLayout(null); // caso esteja usando layout absoluto
+        d.setBounds(0, 0, container.getWidth(), container.getHeight());
+        container.add(d);
+        container.revalidate();
+        container.repaint();
     }
 
     /**
@@ -59,6 +67,7 @@ public class layout extends javax.swing.JFrame {
         jButton10 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1047, 707));
 
         container.setBackground(new java.awt.Color(102, 102, 102));
 
@@ -66,11 +75,11 @@ public class layout extends javax.swing.JFrame {
         container.setLayout(containerLayout);
         containerLayout.setHorizontalGroup(
             containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 690, Short.MAX_VALUE)
+            .addGap(0, 743, Short.MAX_VALUE)
         );
         containerLayout.setVerticalGroup(
             containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 688, Short.MAX_VALUE)
+            .addGap(0, 695, Short.MAX_VALUE)
         );
 
         jPanel2.setBackground(new java.awt.Color(102, 102, 102));
@@ -184,6 +193,12 @@ public class layout extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        container.removeAll();
+        container.setLayout(null); // caso esteja usando layout absoluto
+        catalogo.setBounds(0, 0, container.getWidth(), container.getHeight());
+        container.add(catalogo);
+        container.revalidate();
+        container.repaint();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -261,6 +276,13 @@ public class layout extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        dashboard d = new dashboard();
+        container.removeAll();
+        container.setLayout(null); // caso esteja usando layout absoluto
+        d.setBounds(0, 0, container.getWidth(), container.getHeight());
+        container.add(d);
+        container.revalidate();
+        container.repaint();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

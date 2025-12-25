@@ -22,11 +22,13 @@ public class EditReserva extends javax.swing.JFrame {
      */
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     ObraService obras = new ObraService();
+    UtilizadorService user = new UtilizadorService();
 
     public EditReserva() {
         initComponents();
         setResizable(false);
         obras();
+        users();
 
     }
 
@@ -50,6 +52,17 @@ public class EditReserva extends javax.swing.JFrame {
         }
     }
 
+    void users() {
+        try {
+            List<Utilizador> list;
+            list = user.readAll();
+            for (Utilizador u : list) {
+                cb_user.addItem(u.getNomeCompleto());
+            }
+        } catch (Exception ex) {
+        }
+    }
+
     public void starter(int id) {
         try {
             ReservaService rs = new ReservaService();
@@ -59,6 +72,7 @@ public class EditReserva extends javax.swing.JFrame {
             String dataFormatada = sdf.format(data); // Converte Date para String "dd/MM/yyyy"
             tf_data.setText(dataFormatada);
             cb_obra.setSelectedItem(obras.read(r.getObraId()).getTitulo());
+            cb_user.setSelectedItem(user.read(r.getObraId()).getNomeCompleto());
             cb_estado.setSelectedItem(r.getStatus());
             lb_id.setText(String.valueOf(id));
         } catch (Exception e) {
@@ -78,6 +92,8 @@ public class EditReserva extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         cb_estado = new javax.swing.JComboBox<>();
+        cb_user = new javax.swing.JComboBox<>();
+        lb_user = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -99,6 +115,8 @@ public class EditReserva extends javax.swing.JFrame {
         jLabel2.setText("Estado");
 
         cb_estado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ATIVA", "CANCELADA" }));
+
+        lb_user.setText("Usuario");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -127,9 +145,15 @@ public class EditReserva extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(cb_obra, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tf_data, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(tf_data, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lb_user, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(cb_user, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
                 .addContainerGap(10, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -144,7 +168,10 @@ public class EditReserva extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(cb_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cb_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lb_user)
+                        .addComponent(cb_user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(17, 17, 17)
                 .addComponent(jButton1)
                 .addGap(41, 41, 41)
@@ -196,11 +223,13 @@ public class EditReserva extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cb_estado;
     private javax.swing.JComboBox<String> cb_obra;
+    public javax.swing.JComboBox<String> cb_user;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel lb_id;
+    public javax.swing.JLabel lb_user;
     private javax.swing.JFormattedTextField tf_data;
     // End of variables declaration//GEN-END:variables
 }

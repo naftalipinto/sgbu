@@ -20,11 +20,14 @@ public final class GcirculacaoPanel extends javax.swing.JPanel {
      * Creates new form GutilizadorPanel
      */
     ObraService obra = new ObraService();
+    UtilizadorService user = new UtilizadorService();
 
     public GcirculacaoPanel() {
         initComponents();
         initializeTable();
+        initializeTablebiblio();
         fillTable(null);
+        fillTablebiblio(null);
     }
 
     void fillTable(String filter) {
@@ -93,6 +96,78 @@ public final class GcirculacaoPanel extends javax.swing.JPanel {
             table3.getColumnModel().getColumn(0).setMinWidth(0);
             table3.getColumnModel().getColumn(0).setMaxWidth(0);
             table3.getColumnModel().getColumn(0).setWidth(0);
+        } catch (Exception ex) {
+        }
+    }
+
+    void fillTablebiblio(String filter) {
+        try {
+            ReservaService service = new ReservaService();
+            List<Reserva> list = null;
+            list = service.readAll();
+
+            DefaultTableModel model = (DefaultTableModel) table4.getModel();
+            model.setRowCount(0);  // Limpa apenas as linhas, mantém as colunas
+
+            // Converte o filtro para minúsculas uma única vez
+            String lowerFilter = (filter == null || filter.trim().isEmpty())
+                    ? null : filter.toLowerCase();
+
+            for (Reserva r : list) {
+                // Se oranão há filtro ou se algum campo corresponde ao filtro
+                if (lowerFilter == null
+                        || r.getDataReserva().toString().toLowerCase().contains(lowerFilter)
+                        || r.getStatus().contains(lowerFilter)) {
+
+                    addRowToModelbiblio(model, r);
+                }
+            }
+        } catch (Exception ex) {
+        }
+    }
+
+    private void addRowToModelbiblio(DefaultTableModel model, Reserva r) {
+        try {
+            model.addRow(new Object[]{
+                r.getId(),
+                user.read(r.getUtilizadorId()).getNomeCompleto(),
+                obra.read(r.getObraId()).getTitulo(),
+                r.getDataReserva(),
+                r.getPosicaoFila(),
+                r.getStatus()
+
+            });
+        } catch (Exception ex) {
+        }
+    }
+
+    public void initializeTablebiblio() {
+        try {
+            DefaultTableModel model = new DefaultTableModel() {
+                @Override
+                public Class<?> getColumnClass(int columnIndex) {
+                    // Defina os tipos de cada coluna conforme necessário
+                    if (columnIndex == 0) {
+                        return Integer.class; // ID
+                    }
+                    return String.class;
+                }
+            };
+
+            // Defina as colunas na ordem CORRETA que corresponda à sua classe worker
+            model.setColumnIdentifiers(new String[]{
+                "ID",
+                "Utilizador",
+                "Obra",
+                "Data",
+                "Posição",
+                "Estado"
+            });
+
+            table4.setModel(model);
+            table4.getColumnModel().getColumn(0).setMinWidth(0);
+            table4.getColumnModel().getColumn(0).setMaxWidth(0);
+            table4.getColumnModel().getColumn(0).setWidth(0);
         } catch (Exception ex) {
         }
     }
@@ -270,6 +345,8 @@ public final class GcirculacaoPanel extends javax.swing.JPanel {
             }
             long id = (long) model.getValueAt(selectedRow, 0);
             EditReserva r = new EditReserva();
+            r.cb_user.setVisible(false);
+            r.lb_user.setVisible(false);
             r.starter((int) id);
             r.setVisible(true);
 
@@ -283,6 +360,9 @@ public final class GcirculacaoPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         try {
             addReserva add = new addReserva();
+            add.cb_user.setVisible(false);
+            add.cb_user.setEnabled(false);
+            add.lb_user.setVisible(false);
             add.setVisible(true);
         } catch (Exception ex) {
         }
@@ -295,10 +375,29 @@ public final class GcirculacaoPanel extends javax.swing.JPanel {
 
     private void table4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table4MouseClicked
         // TODO add your handling code here:
+        try {
+            DefaultTableModel model = (DefaultTableModel) table4.getModel();
+            int selectedRow = table4.getSelectedRow();
+            if (selectedRow == -1) {
+                JOptionPane.showMessageDialog(null, "Selecione uma linha primeiro!");
+                return;
+            }
+            long id = (long) model.getValueAt(selectedRow, 0);
+            EditReserva r = new EditReserva();
+            r.starter((int) id);
+            r.setVisible(true);
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+        }
     }//GEN-LAST:event_table4MouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        try {
+            addReserva add = new addReserva();
+            add.setVisible(true);
+        } catch (Exception ex) {
+        }        // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void tf_pesquisar1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_pesquisar1KeyTyped
