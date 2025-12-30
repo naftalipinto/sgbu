@@ -46,6 +46,30 @@ public class ExemplarService extends Exemplar{
         con.close();
         return ex;
     }
+      public long readByObra(long obra) throws Exception {
+        String sql = "SELECT * FROM Exemplar WHERE ObraId=?";
+        Connection con = Database.getConnection();
+        PreparedStatement stmt = con.prepareStatement(sql);
+        stmt.setLong(1, obra);
+
+        ResultSet rs = stmt.executeQuery();
+        Exemplar ex = null;
+
+        if (rs.next()) {
+            ex = new Exemplar();
+            ex.setId(rs.getLong("Id"));
+            ex.setObraId(rs.getLong("obraId"));
+            ex.setCota(rs.getString("cota"));
+            ex.setCodigoBarras(rs.getString("codigoBarras"));
+            ex.setEstado(rs.getString("estado"));
+         
+        }
+
+        rs.close();
+        stmt.close();
+        con.close();
+        return ex.getId();
+    }
 
     public List<Exemplar> readAll() throws Exception {
         List<Exemplar> lista = new ArrayList<>();

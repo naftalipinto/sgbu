@@ -21,86 +21,17 @@ public final class GcirculacaoPanel extends javax.swing.JPanel {
      */
     ObraService obra = new ObraService();
     UtilizadorService user = new UtilizadorService();
+    ExemplarService exes = new ExemplarService();
 
     public GcirculacaoPanel() {
         initComponents();
-        initializeTable();
-        initializeTablebiblio();
-        fillTable(null);
-        fillTablebiblio(null);
+        initializeTableEmprestimo();
+        initializeTableReserva();
+        fillTableReserva(null);
+        fillTableEmprestimo(null);
     }
 
-    void fillTable(String filter) {
-        try {
-            ReservaService service = new ReservaService();
-            List<Reserva> list = null;
-            list = service.readAll();
-
-            DefaultTableModel model = (DefaultTableModel) table3.getModel();
-            model.setRowCount(0);  // Limpa apenas as linhas, mantém as colunas
-
-            // Converte o filtro para minúsculas uma única vez
-            String lowerFilter = (filter == null || filter.trim().isEmpty())
-                    ? null : filter.toLowerCase();
-
-            for (Reserva r : list) {
-                // Se oranão há filtro ou se algum campo corresponde ao filtro
-                if (lowerFilter == null
-                        || r.getDataReserva().toString().toLowerCase().contains(lowerFilter)
-                        || r.getStatus().contains(lowerFilter)) {
-
-                    addRowToModel(model, r);
-                }
-            }
-        } catch (Exception ex) {
-        }
-    }
-
-    private void addRowToModel(DefaultTableModel model, Reserva r) {
-        try {
-            model.addRow(new Object[]{
-                r.getId(),
-                obra.read(r.getObraId()).getTitulo(),
-                r.getDataReserva(),
-                r.getPosicaoFila(),
-                r.getStatus()
-
-            });
-        } catch (Exception ex) {
-        }
-    }
-
-    public void initializeTable() {
-        try {
-            DefaultTableModel model = new DefaultTableModel() {
-                @Override
-                public Class<?> getColumnClass(int columnIndex) {
-                    // Defina os tipos de cada coluna conforme necessário
-                    if (columnIndex == 0) {
-                        return Integer.class; // ID
-                    }
-                    return String.class;
-                }
-            };
-
-            // Defina as colunas na ordem CORRETA que corresponda à sua classe worker
-            model.setColumnIdentifiers(new String[]{
-                "ID",
-                "Obra",
-                "Data",
-                "Posição",
-                "Estado"
-            });
-
-            table3.setModel(model);
-            table3.getColumnModel().getColumn(0).setMinWidth(0);
-            table3.getColumnModel().getColumn(0).setMaxWidth(0);
-            table3.getColumnModel().getColumn(0).setWidth(0);
-        } catch (Exception ex) {
-        }
-    }
-
-    void fillTablebiblio(String filter) {
+    void fillTableReserva(String filter) {
         try {
             ReservaService service = new ReservaService();
             List<Reserva> list = null;
@@ -119,14 +50,14 @@ public final class GcirculacaoPanel extends javax.swing.JPanel {
                         || r.getDataReserva().toString().toLowerCase().contains(lowerFilter)
                         || r.getStatus().contains(lowerFilter)) {
 
-                    addRowToModelbiblio(model, r);
+                    addRowToModelReserva(model, r);
                 }
             }
         } catch (Exception ex) {
         }
     }
 
-    private void addRowToModelbiblio(DefaultTableModel model, Reserva r) {
+    private void addRowToModelReserva(DefaultTableModel model, Reserva r) {
         try {
             model.addRow(new Object[]{
                 r.getId(),
@@ -141,7 +72,7 @@ public final class GcirculacaoPanel extends javax.swing.JPanel {
         }
     }
 
-    public void initializeTablebiblio() {
+    public void initializeTableReserva() {
         try {
             DefaultTableModel model = new DefaultTableModel() {
                 @Override
@@ -172,6 +103,81 @@ public final class GcirculacaoPanel extends javax.swing.JPanel {
         }
     }
 
+    void fillTableEmprestimo(String filter) {
+        try {
+            EmprestimoService service = new EmprestimoService();
+            List<Emprestimo> list = null;
+            list = service.readAll();
+
+            DefaultTableModel model = (DefaultTableModel) table5.getModel();
+            model.setRowCount(0);  // Limpa apenas as linhas, mantém as colunas
+
+            // Converte o filtro para minúsculas uma única vez
+            String lowerFilter = (filter == null || filter.trim().isEmpty())
+                    ? null : filter.toLowerCase();
+
+            for (Emprestimo e : list) {
+                // Se oranão há filtro ou se algum campo corresponde ao filtro
+                if (lowerFilter == null
+                        || e.getDataEmprestimo().toString().toLowerCase().contains(lowerFilter)
+                        || e.getEstado().toString().toLowerCase().contains(lowerFilter)
+                        || e.getDataPrevistaDevolucao().toString().toLowerCase().contains(lowerFilter)) {
+
+                    addRowToModelEmprestimo(model, e);
+                }
+            }
+        } catch (Exception ex) {
+        }
+    }
+
+    private void addRowToModelEmprestimo(DefaultTableModel model, Emprestimo e) {
+        try {
+            model.addRow(new Object[]{
+                e.getId(),
+                obra.read(exes.read(e.getExemplarId()).getObraId()).getTitulo(),
+                user.read(e.getUtilizadorId()).getNomeCompleto(),
+                e.getDataEmprestimo(),
+                e.getDataPrevistaDevolucao(),
+                e.getDataDevolucao(),
+                e.getEstado()
+
+            });
+        } catch (Exception ex) {
+        }
+    }
+
+    public void initializeTableEmprestimo() {
+        try {
+            DefaultTableModel model = new DefaultTableModel() {
+                @Override
+                public Class<?> getColumnClass(int columnIndex) {
+                    // Defina os tipos de cada coluna conforme necessário
+                    if (columnIndex == 0) {
+                        return Integer.class; // ID
+                    }
+                    return String.class;
+                }
+            };
+
+            // Defina as colunas na ordem CORRETA que corresponda à sua classe worker
+            model.setColumnIdentifiers(new String[]{
+                "ID",
+                "Exemplar",
+                "Utilizador",
+                "Data Emprestimo",
+                "Data prevista",
+                "Data Devolucao",
+                "Estado"
+            });
+
+            table5.setModel(model);
+            table5.getColumnModel().getColumn(0).setMinWidth(0);
+            table5.getColumnModel().getColumn(0).setMaxWidth(0);
+            table5.getColumnModel().getColumn(0).setWidth(0);
+        } catch (Exception ex) {
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -182,81 +188,17 @@ public final class GcirculacaoPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        table3 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        tf_pesquisar = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         table4 = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
-        tf_pesquisar1 = new javax.swing.JTextField();
+        tf_pesquisar = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-
-        table3.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "ID", "Obra", "Data", "Posição", "Estado"
-            }
-        ));
-        table3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                table3MouseClicked(evt);
-            }
-        });
-        jScrollPane4.setViewportView(table3);
-
-        jButton1.setText("Adicionar");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
-
-        tf_pesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                tf_pesquisarKeyTyped(evt);
-            }
-        });
-
-        jLabel1.setText("Pesquisar");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1035, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(tf_pesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tf_pesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Reserva", jPanel1);
+        jPanel3 = new javax.swing.JPanel();
+        jButton3 = new javax.swing.JButton();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        table5 = new javax.swing.JTable();
+        tf_pesquisar2 = new javax.swing.JTextField();
 
         table4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -279,9 +221,9 @@ public final class GcirculacaoPanel extends javax.swing.JPanel {
         jButton2.setText("Adicionar");
         jButton2.addActionListener(this::jButton2ActionPerformed);
 
-        tf_pesquisar1.addKeyListener(new java.awt.event.KeyAdapter() {
+        tf_pesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                tf_pesquisar1KeyTyped(evt);
+                tf_pesquisarKeyTyped(evt);
             }
         });
 
@@ -302,7 +244,7 @@ public final class GcirculacaoPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(tf_pesquisar1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(tf_pesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -312,14 +254,74 @@ public final class GcirculacaoPanel extends javax.swing.JPanel {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tf_pesquisar1, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                    .addComponent(tf_pesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Biblio", jPanel2);
+        jTabbedPane1.addTab("Reserva", jPanel2);
+
+        jButton3.setText("Adicionar");
+        jButton3.addActionListener(this::jButton3ActionPerformed);
+
+        table5.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Exemplar", "Utilizador", "Data Emprestimo", "Data Prevsita", "Data Devolucao", "Estado"
+            }
+        ));
+        table5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                table5MouseClicked(evt);
+            }
+        });
+        jScrollPane6.setViewportView(table5);
+
+        tf_pesquisar2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tf_pesquisar2KeyTyped(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1047, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 1035, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addGap(15, 15, 15)
+                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tf_pesquisar2, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap()))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 672, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGap(34, 34, 34)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                        .addComponent(tf_pesquisar2))
+                    .addGap(18, 18, 18)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 577, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+
+        jTabbedPane1.addTab("Emprestimo", jPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -335,43 +337,51 @@ public final class GcirculacaoPanel extends javax.swing.JPanel {
         jTabbedPane1.getAccessibleContext().setAccessibleName("Leitor");
     }// </editor-fold>//GEN-END:initComponents
 
-    private void table3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table3MouseClicked
+    private void tf_pesquisar2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_pesquisar2KeyTyped
+        // TODO add your handling code here:
+        fillTableReserva(tf_pesquisar2.getText());
+    }//GEN-LAST:event_tf_pesquisar2KeyTyped
+
+    private void table5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table5MouseClicked
+        // TODO add your handling code here:
         try {
-            DefaultTableModel model = (DefaultTableModel) table3.getModel();
-            int selectedRow = table3.getSelectedRow();
+            DefaultTableModel model = (DefaultTableModel) table5.getModel();
+            int selectedRow = table5.getSelectedRow();
             if (selectedRow == -1) {
                 JOptionPane.showMessageDialog(null, "Selecione uma linha primeiro!");
                 return;
             }
             long id = (long) model.getValueAt(selectedRow, 0);
-            EditReserva r = new EditReserva();
-            r.cb_user.setVisible(false);
-            r.lb_user.setVisible(false);
-            r.starter((int) id);
-            r.setVisible(true);
+            EditEmprestimo e = new EditEmprestimo();
+            e.starter((int) id);
+            e.setVisible(true);
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
         }
+    }//GEN-LAST:event_table5MouseClicked
 
-    }//GEN-LAST:event_table3MouseClicked
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         try {
-            addReserva add = new addReserva();
-            add.cb_user.setVisible(false);
-            add.cb_user.setEnabled(false);
-            add.lb_user.setVisible(false);
+            addEmprestimo add = new addEmprestimo();
             add.setVisible(true);
         } catch (Exception ex) {
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     private void tf_pesquisarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_pesquisarKeyTyped
         // TODO add your handling code here:
-        fillTable(tf_pesquisar.getText());
+            fillTableReserva(tf_pesquisar.getText());
     }//GEN-LAST:event_tf_pesquisarKeyTyped
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try {
+            addReserva add = new addReserva();
+            add.setVisible(true);
+        } catch (Exception ex) {
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void table4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table4MouseClicked
         // TODO add your handling code here:
@@ -392,32 +402,19 @@ public final class GcirculacaoPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_table4MouseClicked
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        try {
-            addReserva add = new addReserva();
-            add.setVisible(true);
-        } catch (Exception ex) {
-        }        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void tf_pesquisar1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_pesquisar1KeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tf_pesquisar1KeyTyped
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable table3;
     private javax.swing.JTable table4;
+    private javax.swing.JTable table5;
     private javax.swing.JTextField tf_pesquisar;
-    private javax.swing.JTextField tf_pesquisar1;
+    private javax.swing.JTextField tf_pesquisar2;
     // End of variables declaration//GEN-END:variables
 }

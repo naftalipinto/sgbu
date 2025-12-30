@@ -52,7 +52,8 @@ public class ObraService extends Obra {
         con.close();
         return o;
     }
-      public Long readByNome(String nome) throws Exception {
+
+    public Long readByNome(String nome) throws Exception {
         String sql = "SELECT * FROM Obra WHERE titulo=?";
         Connection con = Database.getConnection();
         PreparedStatement stmt = con.prepareStatement(sql);
@@ -77,6 +78,34 @@ public class ObraService extends Obra {
         stmt.close();
         con.close();
         return o.getId();
+    }
+
+    public String readByExemplar(Long id) throws Exception {
+        String sql = "SELECT Obra.titulo FROM Obra JOIN\n"
+                + "Exemplar on Exemplar.obraId=Obra.id\n"
+                + "where Exemplar.id==?";
+        Connection con = Database.getConnection();
+        PreparedStatement stmt = con.prepareStatement(sql);
+        stmt.setLong(1, id);
+
+        ResultSet rs = stmt.executeQuery();
+        Obra o = null;
+
+        /* if (rs.next()) {
+            o = new Obra();
+            o.setId(rs.getLong("Id"));
+            o.setTitulo(rs.getString("titulo"));
+            o.setIsbn(rs.getString("isbn"));
+            o.setAno(rs.getInt("ano"));
+            o.setEdicao(rs.getString("edicao"));
+            o.setIdioma(rs.getString("idioma"));
+            o.setSinopse(rs.getString("sinopse"));
+            o.setEditoraId(rs.getLong("editoraId"));
+        }*/
+        rs.close();
+        stmt.close();
+        con.close();
+        return o.getTitulo();
     }
 
     public List<Obra> readAll() throws Exception {

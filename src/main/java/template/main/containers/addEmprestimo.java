@@ -8,6 +8,7 @@ import classes.*;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import javax.swing.JOptionPane;
 import services.*;
 import template.main.layout;
 
@@ -15,26 +16,27 @@ import template.main.layout;
  *
  * @author nafta
  */
-public class addReserva extends javax.swing.JFrame {
+public class addEmprestimo extends javax.swing.JFrame {
 
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    ObraService obras = new ObraService();
+    ExemplarService exes = new ExemplarService();
     UtilizadorService user = new UtilizadorService();
+    ObraService obra = new ObraService();
 
-    public addReserva() {
+    public addEmprestimo() {
         initComponents();
         setResizable(false);
-        obras();
+        exes();
         users();
 
     }
 
-    void obras() {
+    void exes() {
         try {
-            List<Obra> list;
-            list = obras.readAll();
-            for (Obra o : list) {
-                cb_obra.addItem(o.getTitulo());
+            List<Exemplar> list;
+            list = exes.readAll();
+            for (Exemplar e : list) {
+                cb_exe.addItem(obra.read(e.getObraId()).getTitulo());
             }
         } catch (Exception ex) {
         }
@@ -66,8 +68,10 @@ public class addReserva extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         cb_user = new javax.swing.JComboBox<>();
         tf_data = new javax.swing.JFormattedTextField();
-        cb_obra = new javax.swing.JComboBox<>();
+        cb_exe = new javax.swing.JComboBox<>();
         lb_user = new javax.swing.JLabel();
+        tf_dataPrev = new javax.swing.JFormattedTextField();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -78,11 +82,13 @@ public class addReserva extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Obra");
+        jLabel1.setText("Exemplar");
 
         jLabel7.setText("Data");
 
         lb_user.setText("Usuario");
+
+        jLabel8.setText("Data Prev");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -93,8 +99,8 @@ public class addReserva extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                        .addComponent(cb_obra, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cb_exe, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -104,7 +110,13 @@ public class addReserva extends javax.swing.JFrame {
                         .addComponent(lb_user, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
                         .addComponent(cb_user, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tf_dataPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(15, 15, 15))
         );
@@ -116,42 +128,57 @@ public class addReserva extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel7)
                     .addComponent(tf_data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cb_obra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cb_exe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(cb_user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lb_user))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel8)
+                        .addComponent(tf_dataPrev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cb_user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lb_user)))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(583, 130));
+        setSize(new java.awt.Dimension(583, 183));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            ReservaService rs = new ReservaService();
-            Reserva r = new Reserva();
-            r.setObraId(obras.readByNome(cb_obra.getSelectedItem().toString()));
-            String dataTexto = tf_data.getText().trim();
-            java.util.Date dataUtil = sdf.parse(dataTexto);
-            java.sql.Date dataSql = new java.sql.Date(dataUtil.getTime());
-            r.setDataReserva(dataSql);
+            // 1. Preparar os dados
+            Emprestimo e = new Emprestimo();
+            String nomeExemplar = cb_exe.getSelectedItem().toString();
+            Long exemplarId = exes.readByObra(obra.readByNome(nomeExemplar));
+            e.setExemplarId(exemplarId);
+            java.util.Date utilDataEmprestimo = sdf.parse(tf_data.getText().trim());
+            java.util.Date utilDataPrevista = sdf.parse(tf_dataPrev.getText().trim());
+            java.sql.Date sqlDataEmprestimo = new java.sql.Date(utilDataEmprestimo.getTime());
+            java.sql.Date sqlDataPrevista = new java.sql.Date(utilDataPrevista.getTime());
+            e.setDataEmprestimo(sqlDataEmprestimo);
+            e.setDataPrevistaDevolucao(sqlDataPrevista);
             if (cb_user.getSelectedItem() != null) {
-                r.setUtilizadorId(user.readByNome(cb_user.getSelectedItem().toString()));
+                String nomeUser = cb_user.getSelectedItem().toString();
+                e.setUtilizadorId(user.readByNome(nomeUser));
             } else {
-                r.setUtilizadorId(layout.idUser);
+                e.setUtilizadorId(layout.idUser);
             }
-            r.setPosicaoFila(1);
-            r.setStatus("ATIVA");
-            rs.create(r);
+
+            e.setEstado("ABERTO");
+            EmprestimoService es = new EmprestimoService();
+            es.create(e);
             GcirculacaoPanel gc = new GcirculacaoPanel();
-//            gc.fillTable(null);
+           // gc.fillTable(null);
             this.dispose();
 
         } catch (Exception ex) {
-            System.getLogger(addReserva.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this,
+                    "Erro ao criar empréstimo: " + ex.getMessage(),
+                    "Erro",
+                    JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -164,18 +191,20 @@ public class addReserva extends javax.swing.JFrame {
 
  /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new addReserva().setVisible(true);
+            new addEmprestimo().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JComboBox<String> cb_obra;
+    private javax.swing.JComboBox<String> cb_exe;
     public javax.swing.JComboBox<String> cb_user;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     public javax.swing.JLabel lb_user;
     private javax.swing.JFormattedTextField tf_data;
+    private javax.swing.JFormattedTextField tf_dataPrev;
     // End of variables declaration//GEN-END:variables
 }

@@ -198,7 +198,7 @@ public class EditReserva extends javax.swing.JFrame {
             r.setUtilizadorId(layout.idUser);
             rs.update(r);
             GcirculacaoPanel gc = new GcirculacaoPanel();
-            gc.fillTable(null);
+//            gc.fillTable(null);
             this.dispose();
 
         } catch (Exception ex) {

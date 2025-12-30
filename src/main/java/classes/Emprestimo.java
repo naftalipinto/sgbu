@@ -1,10 +1,14 @@
 package classes;
+
+import java.util.Date;
+
 public class Emprestimo {
     private Long exemplarId;
     private Long utilizadorId;
-    private Long dataEmprestimo;
-    private Long dataPrevistaDevolucao;
-    private Long dataDevolucao;
+    private Date dataEmprestimo;
+    private Date dataPrevistaDevolucao;
+    private Date dataDevolucao;
+    private Long id;
     private String estado; // ENUM
 
     // Getters e setters
@@ -25,27 +29,35 @@ public class Emprestimo {
         this.utilizadorId = utilizadorId;
     }
 
-    public Long getDataEmprestimo() {
+    public Date getDataEmprestimo() {
         return dataEmprestimo;
     }
 
-    public void setDataEmprestimo(Long dataEmprestimo) {
+    public void setDataEmprestimo(Date dataEmprestimo) {
         this.dataEmprestimo = dataEmprestimo;
     }
 
-    public Long getDataPrevistaDevolucao() {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getDataPrevistaDevolucao() {
         return dataPrevistaDevolucao;
     }
 
-    public void setDataPrevistaDevolucao(Long dataPrevistaDevolucao) {
+    public void setDataPrevistaDevolucao(Date dataPrevistaDevolucao) {
         this.dataPrevistaDevolucao = dataPrevistaDevolucao;
     }
 
-    public Long getDataDevolucao() {
+    public Date getDataDevolucao() {
         return dataDevolucao;
     }
 
-    public void setDataDevolucao(Long dataDevolucao) {
+    public void setDataDevolucao(Date dataDevolucao) {
         this.dataDevolucao = dataDevolucao;
     }
 

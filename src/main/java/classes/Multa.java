@@ -1,11 +1,14 @@
 package classes;
+
+import java.sql.Date;
+
 public class Multa {
     private Long emprestimoId;
     private double valor;
     private String motivo; // ENUM
     private boolean pago;
-    private Long dataGeracao;
-    private Long dataPagamento;
+    private Date dataGeracao;
+    private Date dataPagamento;
 
 
     public Long getEmprestimoId() {
@@ -40,19 +43,19 @@ public class Multa {
         this.pago = pago;
     }
 
-    public Long getDataGeracao() {
+    public Date getDataGeracao() {
         return dataGeracao;
     }
 
-    public void setDataGeracao(Long dataGeracao) {
+    public void setDataGeracao(Date dataGeracao) {
         this.dataGeracao = dataGeracao;
     }
 
-    public Long getDataPagamento() {
+    public Date getDataPagamento() {
         return dataPagamento;
     }
 
-    public void setDataPagamento(Long dataPagamento) {
+    public void setDataPagamento(Date dataPagamento) {
         this.dataPagamento = dataPagamento;
     }
  
