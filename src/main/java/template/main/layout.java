@@ -15,8 +15,6 @@ import template.main.containers.*;
  */
 public class layout extends javax.swing.JFrame {
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(layout.class.getName());
-
     /**
      * Creates new form menu
      */
@@ -25,9 +23,10 @@ public class layout extends javax.swing.JFrame {
     GobraPanel obra = new GobraPanel();
     GcirculacaoPanel circulacao = new GcirculacaoPanel();
     GexemplarPanel exemplar = new GexemplarPanel();
-    GcatalogoPanel catalogo = new GcatalogoPanel();
+ 
     Utilizador usuario;
     public static Long idUser;
+    public static String perfil;
 
     public layout(Utilizador u) {
         initComponents();
@@ -35,6 +34,7 @@ public class layout extends javax.swing.JFrame {
         container.setLayout(null);
         this.usuario = u;
         idUser = u.getId();
+        perfil = u.getPerfil();
         dashboard d = new dashboard();
         container.removeAll();
         container.setLayout(null); // caso esteja usando layout absoluto
@@ -42,6 +42,44 @@ public class layout extends javax.swing.JFrame {
         container.add(d);
         container.revalidate();
         container.repaint();
+        menuStarter();
+    }
+
+    private void menuStarter() {
+
+        if (perfil.equals("ADMIN")) {
+            mnEditora.setVisible(true);
+            mnObra.setVisible(true);
+            mnExemplar.setVisible(true);
+            mnCirculacao.setVisible(true);
+            mnUtilizador.setVisible(true);
+            mnRelatorio.setVisible(true);
+            mnPerfil.setVisible(true);
+            return;
+        }
+
+        // BIBLIOTECÁRIO
+        if (perfil.equals("BIBLIO")) {
+            mnEditora.setVisible(true);
+            mnObra.setVisible(true);
+            mnExemplar.setVisible(true);
+            mnCirculacao.setVisible(true);
+            mnUtilizador.setVisible(true);
+            mnRelatorio.setVisible(true);
+            mnPerfil.setVisible(true);
+        }
+
+        // LEITOR
+        if (perfil.equals("LEITOR")) {
+            mnUtilizador.setVisible(false);
+            mnObra.setVisible(false);
+            mnExemplar.setVisible(false);
+            mnRelatorio.setVisible(false);
+            mnCirculacao.setVisible(true);
+            mnEditora.setVisible(false);
+            mnPerfil.setVisible(true);
+
+        }
     }
 
     /**
@@ -55,16 +93,15 @@ public class layout extends javax.swing.JFrame {
 
         container = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        mnUtilizador = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        mnObra = new javax.swing.JButton();
+        mnExemplar = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
+        mnPerfil = new javax.swing.JButton();
+        mnRelatorio = new javax.swing.JButton();
+        mnCirculacao = new javax.swing.JButton();
+        mnEditora = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1047, 707));
@@ -84,62 +121,57 @@ public class layout extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(102, 102, 102));
 
-        jButton1.setText("Gestão de utilizadores");
-        jButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jButton1.addActionListener(this::jButton1ActionPerformed);
+        mnUtilizador.setText("Gestão de utilizadores");
+        mnUtilizador.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        mnUtilizador.addActionListener(this::mnUtilizadorActionPerformed);
 
         jButton2.setText("Inicio");
         jButton2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jButton2.addActionListener(this::jButton2ActionPerformed);
 
-        jButton3.setText("Gestão de Obras");
-        jButton3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jButton3.addActionListener(this::jButton3ActionPerformed);
+        mnObra.setText("Gestão de Obras");
+        mnObra.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        mnObra.addActionListener(this::mnObraActionPerformed);
 
-        jButton4.setText("Gestão de Exemplares");
-        jButton4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jButton4.addActionListener(this::jButton4ActionPerformed);
+        mnExemplar.setText("Gestão de Exemplares");
+        mnExemplar.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        mnExemplar.addActionListener(this::mnExemplarActionPerformed);
 
         jButton6.setText("Terminar Sessão");
         jButton6.addActionListener(this::jButton6ActionPerformed);
 
-        jButton9.setText("Perfil");
-        jButton9.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jButton9.addActionListener(this::jButton9ActionPerformed);
+        mnPerfil.setText("Perfil");
+        mnPerfil.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        mnPerfil.addActionListener(this::mnPerfilActionPerformed);
 
-        jButton7.setText("Relatórios");
-        jButton7.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jButton7.addActionListener(this::jButton7ActionPerformed);
+        mnRelatorio.setText("Relatórios");
+        mnRelatorio.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        mnRelatorio.addActionListener(this::mnRelatorioActionPerformed);
 
-        jButton8.setText("Circulação");
-        jButton8.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jButton8.addActionListener(this::jButton8ActionPerformed);
+        mnCirculacao.setText("Circulação");
+        mnCirculacao.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        mnCirculacao.addActionListener(this::mnCirculacaoActionPerformed);
 
-        jButton5.setText("Catálogo");
-        jButton5.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jButton5.addActionListener(this::jButton5ActionPerformed);
-
-        jButton10.setText("Gestão de Editoras");
-        jButton10.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jButton10.addActionListener(this::jButton10ActionPerformed);
+        mnEditora.setText("Gestão de Editoras");
+        mnEditora.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        mnEditora.addActionListener(this::mnEditoraActionPerformed);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(mnCirculacao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(mnUtilizador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(mnPerfil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(mnRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(mnExemplar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(mnObra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(72, 72, 72)
                 .addComponent(jButton6)
                 .addContainerGap(88, Short.MAX_VALUE))
-            .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(mnEditora, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,21 +179,19 @@ public class layout extends javax.swing.JFrame {
                 .addGap(109, 109, 109)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(mnEditora, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(mnObra, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(mnExemplar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(mnUtilizador, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(mnCirculacao, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(mnPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(mnRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton6)
                 .addGap(22, 22, 22))
@@ -191,17 +221,7 @@ public class layout extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-        container.removeAll();
-        container.setLayout(null); // caso esteja usando layout absoluto
-        catalogo.setBounds(0, 0, container.getWidth(), container.getHeight());
-        container.add(catalogo);
-        container.revalidate();
-        container.repaint();
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void mnUtilizadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnUtilizadorActionPerformed
         container.removeAll();
         container.setLayout(null); // caso esteja usando layout absoluto
         user.setBounds(0, 0, container.getWidth(), container.getHeight());
@@ -209,13 +229,13 @@ public class layout extends javax.swing.JFrame {
         container.revalidate();
         container.repaint();
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_mnUtilizadorActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void mnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnRelatorioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_mnRelatorioActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    private void mnCirculacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnCirculacaoActionPerformed
         // TODO add your handling code here:
         container.removeAll();
         container.setLayout(null); // caso esteja usando layout absoluto
@@ -223,9 +243,9 @@ public class layout extends javax.swing.JFrame {
         container.add(circulacao);
         container.revalidate();
         container.repaint();
-    }//GEN-LAST:event_jButton8ActionPerformed
+    }//GEN-LAST:event_mnCirculacaoActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+    private void mnEditoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnEditoraActionPerformed
         // TODO add your handling code here:
         container.removeAll();
         container.setLayout(null); // caso esteja usando layout absoluto
@@ -233,9 +253,9 @@ public class layout extends javax.swing.JFrame {
         container.add(editora);
         container.revalidate();
         container.repaint();
-    }//GEN-LAST:event_jButton10ActionPerformed
+    }//GEN-LAST:event_mnEditoraActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void mnObraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnObraActionPerformed
         // TODO add your handling code here:
         container.removeAll();
         container.setLayout(null); // caso esteja usando layout absoluto
@@ -243,9 +263,9 @@ public class layout extends javax.swing.JFrame {
         container.add(obra);
         container.revalidate();
         container.repaint();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_mnObraActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void mnExemplarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnExemplarActionPerformed
         // TODO add your handling code here:
         container.removeAll();
         container.setLayout(null); // caso esteja usando layout absoluto
@@ -253,7 +273,7 @@ public class layout extends javax.swing.JFrame {
         container.add(exemplar);
         container.revalidate();
         container.repaint();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_mnExemplarActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
@@ -263,7 +283,7 @@ public class layout extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+    private void mnPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnPerfilActionPerformed
         // TODO add your handling code here:
         GperfilPanel perfil = new GperfilPanel(usuario);
         container.removeAll();
@@ -272,7 +292,7 @@ public class layout extends javax.swing.JFrame {
         container.add(perfil);
         container.revalidate();
         container.repaint();
-    }//GEN-LAST:event_jButton9ActionPerformed
+    }//GEN-LAST:event_mnPerfilActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -302,7 +322,7 @@ public class layout extends javax.swing.JFrame {
                 }
             }
         } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
+
         }
         //</editor-fold>
 
@@ -311,16 +331,16 @@ public class layout extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel container;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JButton mnCirculacao;
+    private javax.swing.JButton mnEditora;
+    private javax.swing.JButton mnExemplar;
+    private javax.swing.JButton mnObra;
+    private javax.swing.JButton mnPerfil;
+    private javax.swing.JButton mnRelatorio;
+    private javax.swing.JButton mnUtilizador;
     // End of variables declaration//GEN-END:variables
+
 }
