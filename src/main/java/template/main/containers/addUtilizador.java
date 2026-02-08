@@ -16,12 +16,14 @@ public class addUtilizador extends javax.swing.JFrame {
     /**
      * Creates new form addworker
      */
-    public addUtilizador() {
+    private GutilizadorPanel guPanel;
+
+    public addUtilizador(GutilizadorPanel guPanel) {
         initComponents();
         setResizable(false);
+        this.guPanel = guPanel;
 
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -158,15 +160,14 @@ public class addUtilizador extends javax.swing.JFrame {
         u.setSenhaHash(tf_senha.getText());
         u.setEstado("ATIVO");
         try {
-        us.create(u);
-        GutilizadorPanel gs = new GutilizadorPanel();
-        gs.fillTable(null);
-        this.dispose();
+            us.create(u);
+            guPanel.fillTable(null);
+            this.dispose();
 
         } catch (Exception ex) {
             System.getLogger(addUtilizador.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -197,10 +198,6 @@ public class addUtilizador extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new addUtilizador().setVisible(true);
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

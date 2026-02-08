@@ -24,9 +24,11 @@ public class EditEmprestimo extends javax.swing.JFrame {
     ObraService obra = new ObraService();
     UtilizadorService user = new UtilizadorService();
     ExemplarService exes = new ExemplarService();
+    private GcirculacaoPanel gcPanel;
 
-    public EditEmprestimo() {
+    public EditEmprestimo(GcirculacaoPanel gcPanel) {
         initComponents();
+        this.gcPanel=gcPanel;
         setResizable(false);
         exes();
         users();
@@ -125,6 +127,7 @@ public class EditEmprestimo extends javax.swing.JFrame {
         jLabel9.setText("Data Dev");
 
         lb_id.setText("jLabel3");
+        lb_id.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -238,8 +241,7 @@ public class EditEmprestimo extends javax.swing.JFrame {
                 ms.processarMulta(e);
             }
 
-            GcirculacaoPanel gc = new GcirculacaoPanel();
-            //  gc.fillTable(null);
+            gcPanel.fillTableEmprestimo(null);
             this.dispose();
 
         } catch (Exception ex) {
@@ -254,10 +256,7 @@ public class EditEmprestimo extends javax.swing.JFrame {
     public static void main(String args[]) {
 
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new EditEmprestimo().setVisible(true);
-        });
+    
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

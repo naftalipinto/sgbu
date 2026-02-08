@@ -16,8 +16,10 @@ public class EditEditora extends javax.swing.JFrame {
     /**
      * Creates new form addworker
      */
-    public EditEditora() {
+    private GeditoraPanel gePanel;
+    public EditEditora(GeditoraPanel gePanel ) {
         initComponents();
+        this.gePanel=gePanel;
         setResizable(false);
 
     }
@@ -160,8 +162,7 @@ public class EditEditora extends javax.swing.JFrame {
         e.setId(Long.valueOf(lb_id.getText()));
       
         es.update(e);
-        GeditoraPanel gs = new GeditoraPanel();
-        gs.initializeTable();
+        gePanel.fillTable(null);
         this.dispose();
 
         } catch (Exception ex) {
@@ -213,9 +214,7 @@ public class EditEditora extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new EditEditora().setVisible(true);
-        });
+       
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

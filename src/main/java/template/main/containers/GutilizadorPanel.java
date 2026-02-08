@@ -181,7 +181,7 @@ public final class GutilizadorPanel extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         try {
-            addUtilizador add = new addUtilizador();
+            addUtilizador add = new addUtilizador(this);
             add.setVisible(true);
         } catch (Exception ex) {
         }
@@ -200,7 +200,7 @@ public final class GutilizadorPanel extends javax.swing.JPanel {
 
             long id = (long) model.getValueAt(selectedRow, 0); // <-- CORRETO
 
-            EditUtilizador u = new EditUtilizador();
+            EditUtilizador u = new EditUtilizador(this);
             u.starter((int) id);
             u.setVisible(true);
 

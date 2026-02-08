@@ -20,9 +20,11 @@ public class addReserva extends javax.swing.JFrame {
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     ObraService obras = new ObraService();
     UtilizadorService user = new UtilizadorService();
+    private GcirculacaoPanel gcPanel;
 
-    public addReserva() {
+    public addReserva(GcirculacaoPanel gcpanel) {
         initComponents();
+        this.gcPanel = gcpanel;
         setResizable(false);
         obras();
         users();
@@ -143,11 +145,10 @@ public class addReserva extends javax.swing.JFrame {
             } else {
                 r.setUtilizadorId(layout.idUser);
             }
-            r.setPosicaoFila(1);
+            r.setPosicaoFila(rs.returnPosicao() + 1);
             r.setStatus("ATIVA");
             rs.create(r);
-            GcirculacaoPanel gc = new GcirculacaoPanel();
-//            gc.fillTable(null);
+            gcPanel.fillTableReserva(null);
             this.dispose();
 
         } catch (Exception ex) {
@@ -160,12 +161,7 @@ public class addReserva extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-
- /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new addReserva().setVisible(true);
-        });
+   
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

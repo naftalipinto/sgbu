@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package template.main.containers;
+
 import classes.Editora;
 import services.EditoraService;
 
@@ -15,12 +16,14 @@ public class addEditora extends javax.swing.JFrame {
     /**
      * Creates new form addworker
      */
-    public addEditora() {
+    private GeditoraPanel gePanel;
+
+    public addEditora(GeditoraPanel gePanel) {
         initComponents();
+        this.gePanel = gePanel;
         setResizable(false);
 
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -114,22 +117,21 @@ public class addEditora extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-  try {
-        EditoraService es = new EditoraService();
-        Editora e= new Editora();
-        e.setNome(tf_nome.getText());
-        e.setEmail(tf_email.getText());
-        e.setTelefone(tf_telefone.getText());
-        e.setEndereco(tf_morada.getText());
-        es.create(e);
-        GeditoraPanel gs = new GeditoraPanel();
-        gs.initializeTable();
-        this.dispose();
+        try {
+            EditoraService es = new EditoraService();
+            Editora e = new Editora();
+            e.setNome(tf_nome.getText());
+            e.setEmail(tf_email.getText());
+            e.setTelefone(tf_telefone.getText());
+            e.setEndereco(tf_morada.getText());
+            es.create(e);
+            gePanel.fillTable(null);
+            this.dispose();
 
         } catch (Exception ex) {
             System.getLogger(addEditora.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -175,9 +177,6 @@ public class addEditora extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new addEditora().setVisible(true);
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

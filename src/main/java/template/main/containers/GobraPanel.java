@@ -176,7 +176,7 @@ public class GobraPanel extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         try {
-            addObra add = new addObra();
+            addObra add = new addObra(this);
             add.setVisible(true);
         } catch (Exception ex) {
         }
@@ -195,7 +195,7 @@ public class GobraPanel extends javax.swing.JPanel {
 
             long id = (long) model.getValueAt(selectedRow, 0); // <-- CORRETO
 
-            EditObra o = new EditObra();
+            EditObra o = new EditObra(this);
             o.starter((int) id);
             o.setVisible(true);
 

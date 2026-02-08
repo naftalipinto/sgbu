@@ -172,7 +172,7 @@ public final class GexemplarPanel extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         try {
-            addExemplar add = new addExemplar();
+            addExemplar add = new addExemplar(this);
             add.setVisible(true);
         } catch (Exception ex) {
         }
@@ -188,7 +188,7 @@ public final class GexemplarPanel extends javax.swing.JPanel {
             }
             DefaultTableModel model = (DefaultTableModel) table.getModel();
             long id = (long) model.getValueAt(selectedRow, 0); // <-- CORRETO
-            EditExemplar e = new EditExemplar();
+            EditExemplar e = new EditExemplar(this);
             e.starter((int) id);
             e.setVisible(true);
 

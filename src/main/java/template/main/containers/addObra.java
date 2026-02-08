@@ -4,11 +4,9 @@
  */
 package template.main.containers;
 
-import classes.Editora;
-import classes.Obra;
+import classes.*;
 import java.util.List;
 import services.*;
-
 
 /**
  *
@@ -19,24 +17,27 @@ public final class addObra extends javax.swing.JFrame {
     /**
      * Creates new form addworker
      */
-    
-    EditoraService service=new EditoraService();
-    public addObra() {
+    private GobraPanel goPanel;
+    EditoraService service = new EditoraService();
+
+    public addObra(GobraPanel goPanel) {
         initComponents();
         setResizable(false);
+        this.goPanel = goPanel;
         Editoras();
 
     }
-    void Editoras(){
-        try{
-          List<Editora> list ;
-            list = service.readAll();
-            for(Editora e: list){
-            cb_editora.addItem(e.getNome());
-            }
-        }catch(Exception ex){}
-    }
 
+    void Editoras() {
+        try {
+            List<Editora> list;
+            list = service.readAll();
+            for (Editora e : list) {
+                cb_editora.addItem(e.getNome());
+            }
+        } catch (Exception ex) {
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -181,27 +182,25 @@ public final class addObra extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-try {
-        ObraService os = new ObraService();
-        Obra o = new Obra();
-        o.setTitulo(tf_titulo.getText());
-        o.setEdicao(tf_edicao.getText());
-        o.setIsbn(tf_isbn.getText());
-        o.setAno(Integer.valueOf(tf_ano.getText()));
-        o.setEditoraId(service.readByName(cb_editora.getSelectedItem().toString()));
-        o.setIdioma(cb_idioma.getSelectedItem().toString());
-        o.setSinopse(tf_sinopse.getText());
-       
-        
-        os.create(o);
-        GobraPanel gs = new GobraPanel();
-        gs.fillTable(null);
-        this.dispose();
+        try {
+            ObraService os = new ObraService();
+            Obra o = new Obra();
+            o.setTitulo(tf_titulo.getText());
+            o.setEdicao(tf_edicao.getText());
+            o.setIsbn(tf_isbn.getText());
+            o.setAno(Integer.valueOf(tf_ano.getText()));
+            o.setEditoraId(service.readByName(cb_editora.getSelectedItem().toString()));
+            o.setIdioma(cb_idioma.getSelectedItem().toString());
+            o.setSinopse(tf_sinopse.getText());
+
+            os.create(o);
+            goPanel.fillTable(null);
+            this.dispose();
 
         } catch (Exception ex) {
             System.getLogger(addObra.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void tf_anoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_anoActionPerformed
@@ -243,9 +242,6 @@ try {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new addObra().setVisible(true);
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

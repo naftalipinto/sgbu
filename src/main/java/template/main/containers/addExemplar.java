@@ -17,24 +17,27 @@ public class addExemplar extends javax.swing.JFrame {
     /**
      * Creates new form addworker
      */
-    ObraService service=new ObraService();
-    public addExemplar() {
+    private GexemplarPanel gePanel;
+    ObraService service = new ObraService();
+
+    public addExemplar(GexemplarPanel gePanel) {
         initComponents();
         setResizable(false);
+        this.gePanel = gePanel;
         obras();
 
     }
-    
-     void obras(){
-        try{
-          List<Obra> list ;
-            list = service.readAll();
-            for(Obra o: list){
-            cb_obra.addItem(o.getTitulo());
-            }
-        }catch(Exception ex){}
-    }
 
+    void obras() {
+        try {
+            List<Obra> list;
+            list = service.readAll();
+            for (Obra o : list) {
+                cb_obra.addItem(o.getTitulo());
+            }
+        } catch (Exception ex) {
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -129,23 +132,21 @@ public class addExemplar extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-             
         try {
-        ExemplarService es = new ExemplarService();
-        Exemplar e = new Exemplar();
-        e.setObraId(service.readByNome(cb_obra.getSelectedItem().toString()));
-        e.setEstado(cb_estado.getSelectedItem().toString());
-        e.setCota(tf_cota.getText());
-        e.setCodigoBarras(tf_barcode.getText());
-        es.create(e);
-        GutilizadorPanel gs = new GutilizadorPanel();
-        gs.fillTable(null);
-        this.dispose();
+            ExemplarService es = new ExemplarService();
+            Exemplar e = new Exemplar();
+            e.setObraId(service.readByNome(cb_obra.getSelectedItem().toString()));
+            e.setEstado(cb_estado.getSelectedItem().toString());
+            e.setCota(tf_cota.getText());
+            e.setCodigoBarras(tf_barcode.getText());
+            es.create(e);
+            gePanel.fillTable(null);
+            this.dispose();
 
         } catch (Exception ex) {
             System.getLogger(addExemplar.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -191,9 +192,6 @@ public class addExemplar extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new addExemplar().setVisible(true);
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -22,8 +22,10 @@ public class addEmprestimo extends javax.swing.JFrame {
     ExemplarService exes = new ExemplarService();
     UtilizadorService user = new UtilizadorService();
     ObraService obra = new ObraService();
+    private GcirculacaoPanel gcPanel;
 
-    public addEmprestimo() {
+    public addEmprestimo(GcirculacaoPanel gcPanel) {
+        this.gcPanel = gcPanel;
         initComponents();
         setResizable(false);
         exes();
@@ -169,8 +171,8 @@ public class addEmprestimo extends javax.swing.JFrame {
             e.setEstado("ABERTO");
             EmprestimoService es = new EmprestimoService();
             es.create(e);
-            GcirculacaoPanel gc = new GcirculacaoPanel();
-           // gc.fillTable(null);
+
+            gcPanel.fillTableEmprestimo(null);
             this.dispose();
 
         } catch (Exception ex) {
@@ -190,9 +192,7 @@ public class addEmprestimo extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
 
  /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new addEmprestimo().setVisible(true);
-        });
+       
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

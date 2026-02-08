@@ -22,9 +22,11 @@ public final class GcirculacaoPanel extends javax.swing.JPanel {
     ObraService obra = new ObraService();
     UtilizadorService user = new UtilizadorService();
     ExemplarService exes = new ExemplarService();
+    Long id=0L;
 
-    public GcirculacaoPanel() {
+    public GcirculacaoPanel(Long  id) {
         initComponents();
+        this.id=id;
         initializeTableEmprestimo();
         initializeTableReserva();
         fillTableReserva(null);
@@ -35,7 +37,14 @@ public final class GcirculacaoPanel extends javax.swing.JPanel {
         try {
             ReservaService service = new ReservaService();
             List<Reserva> list = null;
-            list = service.readAll();
+            if(this.id.equals(0L)){
+                list = service.readAll();
+            
+            } else {
+                 list = service.readFrom(this.id);
+               
+            }
+        
 
             DefaultTableModel model = (DefaultTableModel) table4.getModel();
             model.setRowCount(0);  // Limpa apenas as linhas, mantém as colunas
@@ -107,8 +116,12 @@ public final class GcirculacaoPanel extends javax.swing.JPanel {
         try {
             EmprestimoService service = new EmprestimoService();
             List<Emprestimo> list = null;
-            list = service.readAll();
-
+            if(this.id.equals(0L)){
+             list = service.readAll();
+            }else{
+               
+                list = service.readFrom(this.id);
+            }
             DefaultTableModel model = (DefaultTableModel) table5.getModel();
             model.setRowCount(0);  // Limpa apenas as linhas, mantém as colunas
 
@@ -352,7 +365,7 @@ public final class GcirculacaoPanel extends javax.swing.JPanel {
                 return;
             }
             long id = (long) model.getValueAt(selectedRow, 0);
-            EditEmprestimo e = new EditEmprestimo();
+            EditEmprestimo e = new EditEmprestimo(this);
             e.starter((int) id);
             e.setVisible(true);
 
@@ -364,7 +377,7 @@ public final class GcirculacaoPanel extends javax.swing.JPanel {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         try {
-            addEmprestimo add = new addEmprestimo();
+            addEmprestimo add = new addEmprestimo(this);
             add.setVisible(true);
         } catch (Exception ex) {
         }
@@ -372,13 +385,14 @@ public final class GcirculacaoPanel extends javax.swing.JPanel {
 
     private void tf_pesquisarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_pesquisarKeyTyped
         // TODO add your handling code here:
-            fillTableReserva(tf_pesquisar.getText());
+        fillTableReserva(tf_pesquisar.getText());
     }//GEN-LAST:event_tf_pesquisarKeyTyped
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
-            addReserva add = new addReserva();
-            add.setVisible(true);
+            addReserva ar = new addReserva(this);
+            ar.setVisible(true);
+
         } catch (Exception ex) {
         }        // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -393,7 +407,7 @@ public final class GcirculacaoPanel extends javax.swing.JPanel {
                 return;
             }
             long id = (long) model.getValueAt(selectedRow, 0);
-            EditReserva r = new EditReserva();
+            EditReserva r = new EditReserva(this);
             r.starter((int) id);
             r.setVisible(true);
 

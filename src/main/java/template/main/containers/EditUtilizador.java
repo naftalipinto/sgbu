@@ -16,8 +16,11 @@ public class EditUtilizador extends javax.swing.JFrame {
     /**
      * Creates new form addworker
      */
-    public EditUtilizador() {
+    private GutilizadorPanel guPanel;
+
+    public EditUtilizador(GutilizadorPanel guPanel) {
         initComponents();
+        this.guPanel = guPanel;
         setResizable(false);
 
     }
@@ -208,8 +211,7 @@ public class EditUtilizador extends javax.swing.JFrame {
         u.setId(Long.parseLong(lb_id.getText()));
         try {
             us.update(u);
-            GutilizadorPanel gs = new GutilizadorPanel();
-            gs.fillTable(null);
+            guPanel.fillTable(null);
             this.dispose();
 
         } catch (Exception ex) {
@@ -249,9 +251,6 @@ public class EditUtilizador extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new EditUtilizador().setVisible(true);
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

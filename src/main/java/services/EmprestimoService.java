@@ -73,6 +73,48 @@ public class EmprestimoService {
         con.close();
         return e;
     }
+    
+    public List<Emprestimo> readFrom(long id) throws Exception {
+         List<Emprestimo> lista = new ArrayList<>();
+        String sql = "SELECT * FROM Emprestimo WHERE utilizadorId=?";
+        Connection con = Database.getConnection();
+        PreparedStatement stmt = con.prepareStatement(sql);
+        stmt.setLong(1, id);
+
+        ResultSet rs = stmt.executeQuery();
+        Emprestimo e = null;
+
+        if (rs.next()) {
+            e = new Emprestimo();
+            e.setId(rs.getLong("id")); // Faltava definir o ID
+            e.setExemplarId(rs.getLong("exemplarId"));
+            e.setUtilizadorId(rs.getLong("utilizadorId"));
+            
+            // Converter java.sql.Date para java.util.Date
+            java.sql.Date sqlDateEmprestimo = rs.getDate("dataEmprestimo");
+            if (sqlDateEmprestimo != null) {
+                e.setDataEmprestimo(new java.util.Date(sqlDateEmprestimo.getTime()));
+            }
+            
+            java.sql.Date sqlDatePrevista = rs.getDate("dataPrevistaDevolucao");
+            if (sqlDatePrevista != null) {
+                e.setDataPrevistaDevolucao(new java.util.Date(sqlDatePrevista.getTime()));
+            }
+            
+            java.sql.Date sqlDateDevolucao = rs.getDate("dataDevolucao");
+            if (sqlDateDevolucao != null) {
+                e.setDataDevolucao(new java.util.Date(sqlDateDevolucao.getTime()));
+            }
+            
+            e.setEstado(rs.getString("estado"));
+            lista.add(e);
+        }
+
+        rs.close();
+        stmt.close();
+        con.close();
+        return lista;
+    }
 
     public List<Emprestimo> readAll() throws Exception {
         List<Emprestimo> lista = new ArrayList<>();

@@ -21,8 +21,9 @@ public class layout extends javax.swing.JFrame {
     GutilizadorPanel user = new GutilizadorPanel();
     GeditoraPanel editora = new GeditoraPanel();
     GobraPanel obra = new GobraPanel();
-    GcirculacaoPanel circulacao = new GcirculacaoPanel();
+    GcirculacaoPanel circulacao = new GcirculacaoPanel(0L);
     GexemplarPanel exemplar = new GexemplarPanel();
+    relatorio relatorio = new relatorio();
  
     Utilizador usuario;
     public static Long idUser;
@@ -43,6 +44,10 @@ public class layout extends javax.swing.JFrame {
         container.revalidate();
         container.repaint();
         menuStarter();
+        if(perfil.equals("LEITOR")){
+            circulacao = new GcirculacaoPanel(idUser);
+        }
+        
     }
 
     private void menuStarter() {
@@ -232,7 +237,12 @@ public class layout extends javax.swing.JFrame {
     }//GEN-LAST:event_mnUtilizadorActionPerformed
 
     private void mnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnRelatorioActionPerformed
-        // TODO add your handling code here:
+       container.removeAll();
+        container.setLayout(null); // caso esteja usando layout absoluto
+        relatorio.setBounds(0, 0, container.getWidth(), container.getHeight());
+        container.add(relatorio);
+        container.revalidate();
+        container.repaint();
     }//GEN-LAST:event_mnRelatorioActionPerformed
 
     private void mnCirculacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnCirculacaoActionPerformed

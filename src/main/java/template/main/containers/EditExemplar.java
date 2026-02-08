@@ -19,9 +19,10 @@ public class EditExemplar extends javax.swing.JFrame {
      */
     ObraService service = new ObraService();
      ObraService Obra = new ObraService();
-
-    public EditExemplar() {
+       private GexemplarPanel gePanel;
+    public EditExemplar(GexemplarPanel gePanel) {
         initComponents();
+        this.gePanel=gePanel;
         setResizable(false);
         obras();
 
@@ -166,10 +167,8 @@ public class EditExemplar extends javax.swing.JFrame {
         e.setCota(tf_cota.getText());
         e.setCodigoBarras(tf_barcode.getText());
         e.setId(Long.parseLong(lb_id.getText()));
-        es.create(e);
-        GexemplarPanel gs = new GexemplarPanel();
         es.update(e);
-        gs.fillTable(null);
+        gePanel.fillTable(null);
         this.dispose();
 
         } catch (Exception ex) {
@@ -183,9 +182,7 @@ public class EditExemplar extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new EditExemplar().setVisible(true);
-        });
+      
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

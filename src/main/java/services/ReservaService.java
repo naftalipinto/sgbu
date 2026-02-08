@@ -55,6 +55,33 @@ public class ReservaService extends Reserva {
         con.close();
         return r;
     }
+    
+    public List<Reserva> readFrom(long id) throws Exception {
+        List<Reserva> lista = new ArrayList<>();
+        String sql = "SELECT * FROM Reserva WHERE utilizadorId=?";
+        Connection con = Database.getConnection();
+        PreparedStatement stmt = con.prepareStatement(sql);
+        stmt.setLong(1, id);
+
+        ResultSet rs = stmt.executeQuery();
+        Reserva r = null;
+
+        if (rs.next()) {
+            r = new Reserva();
+            r.setId(rs.getLong("Id"));
+            r.setObraId(rs.getLong("obraId"));
+            r.setUtilizadorId(rs.getLong("utilizadorId"));
+            r.setDataReserva(rs.getDate("dataReserva"));
+            r.setStatus(rs.getString("status"));
+            r.setPosicaoFila(rs.getInt("posicaoFila"));
+            lista.add(r);
+        }
+
+        rs.close();
+        stmt.close();
+        con.close();
+        return lista;
+    }
 
     public List<Reserva> readAll() throws Exception {
         List<Reserva> lista = new ArrayList<>();
@@ -80,6 +107,22 @@ public class ReservaService extends Reserva {
         con.close();
         return lista;
     }
+    
+   public int returnPosicao() throws Exception {
+    String sql = "SELECT posicaoFila FROM Reserva ORDER BY id DESC LIMIT 1";
+
+    try (Connection con = Database.getConnection();
+         Statement stmt = con.createStatement();
+         ResultSet rs = stmt.executeQuery(sql)) {
+
+        if (rs.next()) {
+            return rs.getInt("posicaoFila");
+        } else {
+            return 0; // ou lança exceção
+        }
+    }
+}
+
 
     public void update(Reserva r) throws Exception {
         String sql = "UPDATE Reserva SET obraId=?, utilizadorId=?, dataReserva=?, status=? WHERE id=?";

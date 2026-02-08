@@ -23,9 +23,11 @@ public class EditReserva extends javax.swing.JFrame {
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     ObraService obras = new ObraService();
     UtilizadorService user = new UtilizadorService();
+    private GcirculacaoPanel gcPanel;
 
-    public EditReserva() {
+    public EditReserva(GcirculacaoPanel gcPanel) {
         initComponents();
+        this.gcPanel = gcPanel;
         setResizable(false);
         obras();
         users();
@@ -68,13 +70,15 @@ public class EditReserva extends javax.swing.JFrame {
             ReservaService rs = new ReservaService();
             Reserva r = new Reserva();
             r = rs.read(id);
+            lb_id.setText(String.valueOf(id));
             Date data = r.getDataReserva();
             String dataFormatada = sdf.format(data); // Converte Date para String "dd/MM/yyyy"
             tf_data.setText(dataFormatada);
             cb_obra.setSelectedItem(obras.read(r.getObraId()).getTitulo());
             cb_user.setSelectedItem(user.read(r.getObraId()).getNomeCompleto());
             cb_estado.setSelectedItem(r.getStatus());
-            lb_id.setText(String.valueOf(id));
+        
+            
         } catch (Exception e) {
         }
     }
@@ -84,8 +88,8 @@ public class EditReserva extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jButton1 = new javax.swing.JButton();
         lb_id = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         tf_data = new javax.swing.JFormattedTextField();
         jLabel7 = new javax.swing.JLabel();
         cb_obra = new javax.swing.JComboBox<>();
@@ -95,6 +99,9 @@ public class EditReserva extends javax.swing.JFrame {
         cb_user = new javax.swing.JComboBox<>();
         lb_user = new javax.swing.JLabel();
 
+        lb_id.setText("jLabel2");
+        lb_id.setOpaque(true);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jButton1.setText("Salvar");
@@ -103,10 +110,6 @@ public class EditReserva extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-
-        lb_id.setText("jLabel2");
-        lb_id.setEnabled(false);
-        lb_id.setOpaque(true);
 
         jLabel7.setText("Data");
 
@@ -129,57 +132,50 @@ public class EditReserva extends javax.swing.JFrame {
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(lb_id)
-                                .addGap(236, 236, 236))
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cb_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(cb_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(cb_obra, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(tf_data, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lb_user, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(cb_user, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cb_obra, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tf_data, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lb_user, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(cb_user, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap(10, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap(18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel7)
                     .addComponent(cb_obra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tf_data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(cb_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lb_user)
-                        .addComponent(cb_user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cb_user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(cb_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(17, 17, 17)
                 .addComponent(jButton1)
-                .addGap(41, 41, 41)
-                .addComponent(lb_id)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(29, 29, 29))
         );
 
-        setSize(new java.awt.Dimension(593, 167));
+        setSize(new java.awt.Dimension(593, 185));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -193,12 +189,11 @@ public class EditReserva extends javax.swing.JFrame {
             java.util.Date dataUtil = sdf.parse(dataTexto);
             java.sql.Date dataSql = new java.sql.Date(dataUtil.getTime());
             r.setDataReserva(dataSql);
-            r.setStatus("ATIVA");
+            r.setStatus(cb_estado.getSelectedItem().toString());
             r.setId(Long.valueOf(lb_id.getText()));
-            r.setUtilizadorId(layout.idUser);
+            r.setUtilizadorId(user.readByNome(cb_user.getSelectedItem().toString()));
             rs.update(r);
-            GcirculacaoPanel gc = new GcirculacaoPanel();
-//            gc.fillTable(null);
+            gcPanel.fillTableReserva(null);
             this.dispose();
 
         } catch (Exception ex) {
@@ -214,9 +209,6 @@ public class EditReserva extends javax.swing.JFrame {
 
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new EditReserva().setVisible(true);
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -177,7 +177,7 @@ public final class GeditoraPanel extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         try {
-            addEditora add = new addEditora();
+            addEditora add = new addEditora(this);
             add.setVisible(true);
         } catch (Exception ex) {
         }
@@ -192,7 +192,7 @@ public final class GeditoraPanel extends javax.swing.JPanel {
                 return;
             }
             long id = (long) model.getValueAt(selectedRow, 0); // <-- CORRETO
-            EditEditora e = new EditEditora();
+            EditEditora e = new EditEditora(this);
             e.starter((int) id);
             e.setVisible(true);
 
