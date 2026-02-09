@@ -1,0 +1,33 @@
+Relatório do Projecto - Sistema de Gestão de Biblioteca Universitária (SGBU)
+
+1. Introdução
+Este relatório descreve o desenvolvimento de uma aplicação desktop em Java para gestão de uma biblioteca universitária. O sistema visa informatizar os processos de cadastro de utilizadores, obras, e o controlo de empréstimos e devoluções.
+
+2. Arquitectura
+O projeto segue uma arquitetura em camadas:
+- Model: Classes POJO (Utilizador, Obra, etc.)
+- DAO: Acesso a dados com JDBC e PreparedStatement (SQLite).
+- Service: Regras de negócio (ex: cálculo de multas).
+- UI: Interface gráfica usando Swing.
+
+3. Funcionalidades Implementadas
+- Login: Autenticação segura com hash SHA-256.
+- Gestão de Utilizadores: CRUD completo (apenas Admin).
+- Catálogo: Registo de Obras e Exemplares.
+- Circulação:
+  - Empréstimo com validação de limites e reservas.
+  - Devolução com cálculo automático de multas por atraso.
+  - Bloqueio de novos empréstimos para utilizadores com dívidas.
+
+4. Tecnologias
+- Linguagem: Java 17
+- Base de Dados: SQLite
+- GUI: Java Swing
+
+5. Como Executar
+- Certifique-se de que o ficheiro 'sqlite-jdbc-*.jar' está na pasta 'lib'.
+- Execute o ficheiro 'run.bat'.
+- Login padrão: admin@library.com / admin123
+
+6. Conclusão
+O sistema atende aos requisitos funcionais propostos, garantindo consistência de dados e uma interface amigável para os bibliotecários e leitores.
